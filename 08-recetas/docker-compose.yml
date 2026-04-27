@@ -1,0 +1,9 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_recetas
+    environment:
+      MYSQL_DATABASE: db_recetas
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3314:3306"

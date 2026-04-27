@@ -1,0 +1,9 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_historialClinico
+    environment:
+      MYSQL_DATABASE: db_historialClinico
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3315:3306"

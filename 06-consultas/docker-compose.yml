@@ -1,0 +1,9 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_consultas
+    environment:
+      MYSQL_DATABASE: db_consultas
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3312:3306"

@@ -1,0 +1,9 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_pagos
+    environment:
+      MYSQL_DATABASE: db_pagos
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3313:3306"
