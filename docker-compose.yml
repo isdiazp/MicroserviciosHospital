@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+      - "5005:5005" # Puerto para Debugging remoto
+    volumes:
+      - .:/app    # Sincroniza tu código fuente en tiempo real
+      - ~/.m2:/root/.m2 # Cache de Maven para no descargar librerías cada vez
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: mi_proyecto
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"

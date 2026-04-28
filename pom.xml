@@ -27,7 +27,7 @@
         <module>08-recetas</module>
         <module>09-historialClinico</module>
         <module>10-notificaciones</module>
-        </modules>
+    </modules>
 
     <properties>
         <java.version>17</java.version>
