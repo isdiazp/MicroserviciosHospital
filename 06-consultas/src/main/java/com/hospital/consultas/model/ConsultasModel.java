@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "boxes")
+@Table(name = "consultas")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,21 +19,12 @@ public class ConsultasModel {
     @Column(name = "nombre_box", nullable = false, length = 100)
     private String nombreBox;
 
-    @Column(name = "ubicacion", length = 255)
-    private String ubicacion;
-
-    @Column(name = "piso")
+    @Column(name = "piso", nullable = false)
     private Integer piso;
 
     @Column(name = "tipo_box", length = 50)
     private String tipoBox;
 
-    @Column(name = "equipamiento", columnDefinition = "TEXT")
-    private String equipamiento;
-
     @Column(name = "disponible")
     private Boolean disponible;
-
-    @Column(name = "activo")
-    private Boolean activo;
 }
