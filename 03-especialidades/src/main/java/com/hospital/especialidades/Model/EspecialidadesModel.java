@@ -17,12 +17,12 @@ public class EspecialidadesModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEspecialidad;
 
-    @Column(nullable = false)
+    @Column(name="nombreEspecialidad",nullable = false)
     private String nombreEspecialidad;
 
-    @Column(nullable = false)
+    @Column(name="descripcionEspecialidad",nullable = false)
     private String descripcionEspecialidad;
 
-    @Column(nullable = false)
+    @Column(name="areaMedica",nullable = false)
     private String areaMedica;
 }

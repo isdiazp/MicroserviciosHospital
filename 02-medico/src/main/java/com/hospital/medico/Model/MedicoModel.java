@@ -17,25 +17,25 @@ public class MedicoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMedico;
 
-    @Column(unique=true, length=13, nullable=false)
+    @Column(name="rutMedico",unique=true, length=13, nullable=false)
     private String rutMedico;
 
-    @Column(nullable=false)
+    @Column(name="nombreMedico",nullable=false)
     private String nombreMedico;
 
-    @Column(nullable=false)
+    @Column(name="apellidoMedico",nullable=false)
     private String apellidoMedico;
 
-    @Column(nullable=false)
+    @Column(name="telefonoMedico",nullable=false)
     private String telefonoMedico;
 
-    @Column(nullable=false)
+    @Column(name="correoMedico",nullable=false)
     private String correoMedico;
 
-    @Column(nullable=false)
+    @Column(name="idEspecialidad",nullable=false)
     private Integer idEspecialidad;
 
-    @Column(nullable=false)
+    @Column(name="anniosExperiencia",nullable=false)
     private Integer anniosExperiencia;
 
 
