@@ -1,21 +1,34 @@
 services:
-  app:
-    build: .
-    ports:
-      - "8080:8080"
-      - "5005:5005" # Puerto para Debugging remoto
-    volumes:
-      - .:/app    # Sincroniza tu código fuente en tiempo real
-      - ~/.m2:/root/.m2 # Cache de Maven para no descargar librerías cada vez
-    environment:
-      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
-    depends_on:
-      - db
 
-  db:
+  db_mysql:
     image: mysql:8.0
+    container_name: mysql_hospital
+    restart: always
     environment:
-      MYSQL_DATABASE: mi_proyecto
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
+
+
+  # Microservicio paciente
+  paciente:
+    build:
+      context: ./01-paciente
+      dockerfile: Dockerfile
+    container_name: 01-paciente
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_paciente
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M # Límite estricto para ahorrar RAM
+    depends_on:
+      - db_mysql
+
+volumes:
+  mysql_data:

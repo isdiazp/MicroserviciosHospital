@@ -20,27 +20,27 @@ public class AgendaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAgenda;
 
-    @Column(nullable=false)
+    @Column(name="idMedico",nullable=false)
     private Integer idMedico;
 
-    @Column(nullable=false)
+    @Column(name="fecha",nullable=false)
     private LocalDate fecha;
 
-    @Column(nullable=false)
+    @Column(name="horaInicio",nullable=false)
     private LocalTime horaInicio;
 
-    @Column(nullable=false)
+    @Column(name="horaFin",nullable=false)
     private LocalTime horaFin;
 
-    @Column(nullable=false)
+    @Column(name="duracionMinutos",nullable=false)
     private Integer duracionMinutos;
 
-    @Column(nullable=false)
+    @Column(name="cuposDisponibles",nullable=false)
     private Integer cuposDisponibles;
 
-    @Column(nullable=false)
+    @Column(name="estado",nullable=false)
     private String estado;
 
-    @Column(nullable=false)
+    @Column(name="activo",nullable=false)
     private boolean activo;
 }
