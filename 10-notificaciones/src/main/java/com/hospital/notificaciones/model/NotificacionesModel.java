@@ -1,5 +1,7 @@
 package com.hospital.notificaciones.model;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,22 +15,24 @@ import java.time.LocalDateTime;
 public class NotificacionesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    // Solo necesitamos el ID del paciente (del microservicio 1)
+    @NotNull(message = "El ID del paciente es obligatorio")
     @Column(name = "paciente_id", nullable = false)
     private Long pacienteId;
 
+    @NotBlank(message = "El mensaje no puede estar vacío")
     @Column(name = "mensaje", columnDefinition = "TEXT", nullable = false)
     private String mensaje;
 
-    // Ej: EMAIL, SMS, WHATSAPP
-    @Column(name = "tipo", length = 50, nullable = false)
+    @NotBlank(message = "El tipo de notificación (EMAIL/SMS/ETC) es obligatorio")
+    @Size(max = 50)
+    @Column(nullable = false, length = 50)
     private String tipo;
 
-    // Ej: ENVIADA, PENDIENTE, ERROR
-    @Column(name = "estado", length = 50, nullable = false)
+    @NotBlank(message = "El estado es obligatorio")
+    @Size(max = 50)
+    @Column(nullable = false, length = 50)
     private String estado;
 
     @Column(name = "fecha_envio")
