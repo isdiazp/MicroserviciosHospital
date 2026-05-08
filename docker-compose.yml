@@ -64,5 +64,124 @@ services:
     depends_on:
       - db_mysql
 
+  # Microservicio agenda
+  agenda:
+    build:
+      context: ./04-agenda
+      dockerfile: Dockerfile
+    container_name: 04-agenda
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_agenda
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio reservas
+  reservas:
+    build:
+      context: ./05-reservas
+      dockerfile: Dockerfile
+    container_name: 05-reservas
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_reservas
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio consultas
+  consultas:
+    build:
+      context: ./06-consultas
+      dockerfile: Dockerfile
+    container_name: 06-consultas
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_consultas
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio pagos
+  pagos:
+    build:
+      context: ./07-pagos
+      dockerfile: Dockerfile
+    container_name: 07-pagos
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_pagos
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio recetas
+  recetas:
+    build:
+      context: ./08-recetas
+      dockerfile: Dockerfile
+    container_name: 08-recetas
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_recetas
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio historial clinico
+  historialClinico:
+    build:
+      context: ./09-historialClinico
+      dockerfile: Dockerfile
+    container_name: 09-historialClinico
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_historialClinico
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
+  # Microservicio notificaciones
+  notificaciones:
+    build:
+      context: ./10-notificaciones
+      dockerfile: Dockerfile
+    container_name: 10-notificaciones
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_notificaciones
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db_mysql
+
 volumes:
   mysql_data:
