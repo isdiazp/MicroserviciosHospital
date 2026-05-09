@@ -18,10 +18,11 @@ public class AgendaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idAgenda")
     private Long idAgenda;
 
     @Column(name="idMedico",nullable=false)
-    private Integer idMedico;
+    private Long idMedico;
 
     @Column(name="fecha",nullable=false)
     private LocalDate fecha;

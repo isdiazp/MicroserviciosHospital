@@ -40,7 +40,7 @@ public class ReservasModel {
     private String motivoConsulta;
 
     @Column(name="estado", nullable=false)
-    private String estado; //PENDIENTE, CONFIRMADO, CANCELADO, ANTENTID
+    private String estado; //PENDIENTE, CONFIRMADO, CANCELADO, ANTENTIDO
 
     @Column(name="observacion", nullable=false)
     private String observacion;
