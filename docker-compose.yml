@@ -150,7 +150,7 @@ services:
       - db_mysql
 
   # Microservicio historial clinico
-  historialClinico:
+  historialclinico:
     build:
       context: ./09-historialclinico
       dockerfile: Dockerfile
