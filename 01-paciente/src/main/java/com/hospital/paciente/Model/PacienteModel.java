@@ -1,6 +1,7 @@
 package com.hospital.paciente.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,28 +17,37 @@ public class PacienteModel {
     @Column(name="idPaciente")
     private Long idPaciente;
 
+    @NotBlank(message="El rut debe ser Obligatorio")
     @Column(name = "rutPaciente" ,unique=true, length=13, nullable=false)
     private String rutPaciente;
 
-    @Column(name="nombrePaciente",nullable=false)
+    @NotBlank(message="El nombre del paciente es Obligatorio")
+    @Column(name="nombrePaciente",nullable=false, length=50)
     private String nombrePaciente;
 
-    @Column(name="apellidoPaciente" ,nullable=false)
+
+    @NotBlank(message="El apellido del paciente es Obligatorio")
+    @Column(name="apellidoPaciente" ,nullable=false, length=50)
     private String apellidoPaciente;
 
+    @NotNull(message="La fecha de nacimiento del paciente es Opcional")
     @Column(name="fechaNacimiento",nullable=true)
     private LocalDate fechaNacimiento;
 
-    @Column(name="sexoPaciente",nullable=false)
+    @NotBlank(message="El sexo del paciente es Obligatorio")
+    @Column(name="sexoPaciente",nullable=false, length=20)
     private String sexoPaciente;
 
-    @Column(name="correoPaciente",nullable=false)
+    @NotBlank(message="El correo del paciente es Obligatorio")
+    @Column(name="correoPaciente",nullable=false,  length=60)
     private String correoPaciente;
 
-    @Column(name="telefonoPaciente",nullable=false)
+    @NotBlank(message="El telefono del paciente es Obligatorio")
+    @Column(name="telefonoPaciente",nullable=false, length=15)
     private String telefonoPaciente;
 
-    @Column(name="direccionPaciente",nullable=true)
+    @NotBlank(message="La direccion del paciente es Opcional")
+    @Column(name="direccionPaciente",nullable=true,  length=50)
     private String direccionPaciente;
 
 

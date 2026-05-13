@@ -2,6 +2,7 @@ package com.hospital.especialidades.Controller;
 
 import com.hospital.especialidades.Model.EspecialidadesModel;
 import com.hospital.especialidades.Service.EspecialidadesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class EspecialidadesController {
     }
 
     @PostMapping
-    public ResponseEntity<EspecialidadesModel> guardar(@RequestBody EspecialidadesModel especialidadesModel){
+    public ResponseEntity<EspecialidadesModel> guardar(@Valid @RequestBody EspecialidadesModel especialidadesModel){
         EspecialidadesModel  especialidad = especialidadesService.save(especialidadesModel);
         return ResponseEntity.status(HttpStatus.OK).body(especialidad);
     }

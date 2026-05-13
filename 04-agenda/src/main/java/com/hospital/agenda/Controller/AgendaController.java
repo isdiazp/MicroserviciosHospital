@@ -2,6 +2,7 @@ package com.hospital.agenda.Controller;
 
 import com.hospital.agenda.Model.AgendaModel;
 import com.hospital.agenda.Service.AgendaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class AgendaController {
     }
 
     @PostMapping
-    public ResponseEntity<AgendaModel> guardar(@RequestBody AgendaModel agendaModel){
+    public ResponseEntity<AgendaModel> guardar(@Valid @RequestBody AgendaModel agendaModel){
         AgendaModel agenda = agendaService.save(agendaModel);
         return ResponseEntity.status(HttpStatus.OK).body(agenda);
     }

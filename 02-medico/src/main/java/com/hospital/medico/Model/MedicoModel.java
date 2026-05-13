@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import jakarta.validation.constraints.*;
 @Entity
 @Data
 @Table(name="medico")
@@ -18,24 +18,31 @@ public class MedicoModel {
     @Column(name="idMedico")
     private Long idMedico;
 
+    @NotBlank(message="El rut del medico es Obligatorio")
     @Column(name="rutMedico",unique=true, length=13, nullable=false)
     private String rutMedico;
 
-    @Column(name="nombreMedico",nullable=false)
+    @NotBlank(message="EL nombre del medico es Obligatorio")
+    @Column(name="nombreMedico",nullable=false, length=50)
     private String nombreMedico;
 
-    @Column(name="apellidoMedico",nullable=false)
+    @NotBlank(message="EL apellido del medico es Obligatorio")
+    @Column(name="apellidoMedico",nullable=false, length=50)
     private String apellidoMedico;
 
-    @Column(name="telefonoMedico",nullable=false)
+    @NotBlank(message="El telefono del medico es Obligatorio")
+    @Column(name="telefonoMedico",nullable=false, length=15)
     private String telefonoMedico;
 
-    @Column(name="correoMedico",nullable=false)
+    @NotBlank(message="El correo del medico es Obligatorio")
+    @Column(name="correoMedico",nullable=false, length=50)
     private String correoMedico;
 
+    @NotNull(message="El id de Especialidad es Obligatorio")
     @Column(name="idEspecialidad",nullable=false)
-    private Integer idEspecialidad;
+    private Long idEspecialidad;
 
+    @NotNull(message="EL annio de experiencia es Obligatorio")
     @Column(name="anniosExperiencia",nullable=false)
     private Integer anniosExperiencia;
 

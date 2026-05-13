@@ -2,6 +2,7 @@ package com.hospital.especialidades.Model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,15 @@ public class EspecialidadesModel {
     @Column(name="idEspecialidad")
     private Long idEspecialidad;
 
-    @Column(name="nombreEspecialidad",nullable = false)
+    @NotBlank(message="El nombre de la especialidad es Obligatorio")
+    @Column(name="nombreEspecialidad",nullable = false,  length=50)
     private String nombreEspecialidad;
 
-    @Column(name="descripcionEspecialidad",nullable = false)
+    @NotBlank(message="La descripcion de la especilidad es Obligatorio")
+    @Column(name="descripcionEspecialidad",nullable = false, length=200)
     private String descripcionEspecialidad;
 
-    @Column(name="areaMedica",nullable = false)
+    @NotBlank(message="El area medica es Obligatorio")
+    @Column(name="areaMedica",nullable = false, length=40)
     private String areaMedica;
 }

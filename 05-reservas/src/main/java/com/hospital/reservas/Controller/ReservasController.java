@@ -2,6 +2,7 @@ package com.hospital.reservas.Controller;
 
 import com.hospital.reservas.Model.ReservasModel;
 import com.hospital.reservas.Service.ReservasService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class ReservasController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservasModel> guardar(@RequestBody ReservasModel reserva){
+    public ResponseEntity<ReservasModel> guardar(@Valid @RequestBody ReservasModel reserva){
             ReservasModel reservas = reservasService.save(reserva);
             return ResponseEntity.status(HttpStatus.CREATED).body(reservas);
 

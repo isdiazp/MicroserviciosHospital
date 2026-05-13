@@ -2,6 +2,7 @@ package com.hospital.medico.Controller;
 
 import com.hospital.medico.Model.MedicoModel;
 import com.hospital.medico.Service.MedicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class MedicoController {
     }
 
     @PostMapping
-    public ResponseEntity<MedicoModel> guardar(@RequestBody MedicoModel medico){
+    public ResponseEntity<MedicoModel> guardar(@Valid @RequestBody MedicoModel medico){
         MedicoModel medicos = medicoService.save(medico);
         return ResponseEntity.status( HttpStatus.CREATED).body(medicos);
     }
