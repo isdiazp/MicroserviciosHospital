@@ -48,14 +48,14 @@ public class MedicoController {
         try{
             MedicoModel medicos = medicoService.findById(id);
 
-            medicos.setIdMedico(medico.getIdMedico());
-            medicos.setRutMedico(medicos.getRutMedico());
-            medicos.setNombreMedico(medicos.getNombreMedico());
-            medicos.setApellidoMedico(medicos.getApellidoMedico());
-            medicos.setTelefonoMedico(medicos.getTelefonoMedico());
-            medicos.setCorreoMedico(medicos.getCorreoMedico());
-            medicos.setAnniosExperiencia(medicos.getAnniosExperiencia());
-            medicos.setIdEspecialidad(medicos.getIdEspecialidad());
+            medicos.setIdMedico(id);
+            medicos.setRutMedico(medico.getRutMedico());
+            medicos.setNombreMedico(medico.getNombreMedico());
+            medicos.setApellidoMedico(medico.getApellidoMedico());
+            medicos.setTelefonoMedico(medico.getTelefonoMedico());
+            medicos.setCorreoMedico(medico.getCorreoMedico());
+            medicos.setAnniosExperiencia(medico.getAnniosExperiencia());
+            medicos.setIdEspecialidad(medico.getIdEspecialidad());
 
             medicoService.save(medicos);
             return ResponseEntity.ok(medicos);

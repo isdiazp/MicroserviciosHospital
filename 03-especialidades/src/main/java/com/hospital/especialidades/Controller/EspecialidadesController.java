@@ -51,7 +51,7 @@ public class EspecialidadesController {
         try{
             EspecialidadesModel especialidad = especialidadesService.findById(id);
 
-            especialidad.setIdEspecialidad(especialidadesModel.getIdEspecialidad());
+            especialidad.setIdEspecialidad(id);
             especialidad.setNombreEspecialidad(especialidadesModel.getNombreEspecialidad());
             especialidad.setDescripcionEspecialidad(especialidadesModel.getDescripcionEspecialidad());
             especialidad.setAreaMedica(especialidadesModel.getAreaMedica());
