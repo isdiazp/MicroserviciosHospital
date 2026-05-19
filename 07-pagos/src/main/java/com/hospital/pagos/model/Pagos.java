@@ -2,16 +2,12 @@ package com.hospital.pagos.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*; // Importante para las validaciones
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pagos")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor // Con estas de Lombok ya no necesitas escribir los constructores a mano
 public class Pagos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,4 +38,72 @@ public class Pagos {
     @NotNull
     @Column(nullable = false)
     private Boolean activo;
+
+    public Pagos() {
+    }
+
+    public Pagos(Boolean activo, String estadoPago, String medioPago, LocalDateTime fechaPago, Double monto, String rutPaciente) {
+        this.activo = activo;
+        this.estadoPago = estadoPago;
+        this.medioPago = medioPago;
+        this.fechaPago = fechaPago;
+        this.monto = monto;
+        this.rutPaciente = rutPaciente;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    public String getEstadoPago() {
+        return estadoPago;
+    }
+
+    public void setEstadoPago(String estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDateTime fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
+
+    public String getRutPaciente() {
+        return rutPaciente;
+    }
+
+    public void setRutPaciente(String rutPaciente) {
+        this.rutPaciente = rutPaciente;
+    }
 }

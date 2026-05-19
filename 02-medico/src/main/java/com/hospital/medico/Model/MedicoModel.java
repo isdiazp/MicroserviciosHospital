@@ -1,15 +1,11 @@
 package com.hospital.medico.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.*;
 @Entity
 @Data
 @Table(name="medico")
-@AllArgsConstructor
-@NoArgsConstructor
 
 public class MedicoModel {
 
@@ -46,6 +42,80 @@ public class MedicoModel {
     @Column(name="anniosExperiencia",nullable=false)
     private Integer anniosExperiencia;
 
+    public MedicoModel() {
+    }
 
+    public MedicoModel(String rutMedico, String nombreMedico, String apellidoMedico, String telefonoMedico, String correoMedico, Long idEspecialidad, Integer anniosExperiencia) {
+        this.rutMedico = rutMedico;
+        this.nombreMedico = nombreMedico;
+        this.apellidoMedico = apellidoMedico;
+        this.telefonoMedico = telefonoMedico;
+        this.correoMedico = correoMedico;
+        this.idEspecialidad = idEspecialidad;
+        this.anniosExperiencia = anniosExperiencia;
+    }
 
+    public Long getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Long idMedico) {
+        this.idMedico = idMedico;
+    }
+
+    public String getRutMedico() {
+        return rutMedico;
+    }
+
+    public void setRutMedico(String rutMedico) {
+        this.rutMedico = rutMedico;
+    }
+
+    public String getNombreMedico() {
+        return nombreMedico;
+    }
+
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
+    }
+
+    public String getApellidoMedico() {
+        return apellidoMedico;
+    }
+
+    public void setApellidoMedico(String apellidoMedico) {
+        this.apellidoMedico = apellidoMedico;
+    }
+
+    public String getTelefonoMedico() {
+        return telefonoMedico;
+    }
+
+    public void setTelefonoMedico(String telefonoMedico) {
+        this.telefonoMedico = telefonoMedico;
+    }
+
+    public String getCorreoMedico() {
+        return correoMedico;
+    }
+
+    public void setCorreoMedico(String correoMedico) {
+        this.correoMedico = correoMedico;
+    }
+
+    public Long getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Long idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
+    public Integer getAnniosExperiencia() {
+        return anniosExperiencia;
+    }
+
+    public void setAnniosExperiencia(Integer anniosExperiencia) {
+        this.anniosExperiencia = anniosExperiencia;
+    }
 }

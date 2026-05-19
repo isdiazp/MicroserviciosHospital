@@ -2,15 +2,11 @@ package com.hospital.consultas.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "consultas")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ConsultasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +29,54 @@ public class ConsultasModel {
 
     @NotNull(message = "El estado de disponibilidad es obligatorio")
     private Boolean disponible;
+
+    public ConsultasModel() {
+    }
+
+    public ConsultasModel(Boolean disponible, String tipoBox, Integer piso, String nombreBox) {
+        this.disponible = disponible;
+        this.tipoBox = tipoBox;
+        this.piso = piso;
+        this.nombreBox = nombreBox;
+    }
+
+    public String getNombreBox() {
+        return nombreBox;
+    }
+
+    public void setNombreBox(String nombreBox) {
+        this.nombreBox = nombreBox;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getPiso() {
+        return piso;
+    }
+
+    public void setPiso(Integer piso) {
+        this.piso = piso;
+    }
+
+    public String getTipoBox() {
+        return tipoBox;
+    }
+
+    public void setTipoBox(String tipoBox) {
+        this.tipoBox = tipoBox;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
 }

@@ -2,16 +2,12 @@ package com.hospital.notificaciones.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notificaciones")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class NotificacionesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +33,63 @@ public class NotificacionesModel {
 
     @Column(name = "fecha_envio")
     private LocalDateTime fechaEnvio;
+
+    public NotificacionesModel() {
+    }
+
+    public NotificacionesModel(Long pacienteId, String mensaje, String tipo, String estado, LocalDateTime fechaEnvio) {
+        this.pacienteId = pacienteId;
+        this.mensaje = mensaje;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public Long getPacienteId() {
+        return pacienteId;
+    }
+
+    public void setPacienteId(Long pacienteId) {
+        this.pacienteId = pacienteId;
+    }
 }

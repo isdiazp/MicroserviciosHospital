@@ -5,6 +5,7 @@ import com.hospital.recetas.service.RecetasService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -37,4 +38,15 @@ public class RecetasController {
     public void borrar(@PathVariable Long id) {
         service.eliminar(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RecetasModel> actualizar(@PathVariable Long id, @Valid @RequestBody RecetasModel datosActualizados) {
+        try {
+            RecetasModel recetaModificada = service.actualizar(id, datosActualizados);
+            return ResponseEntity.ok(recetaModificada); // 200 OK con los datos nuevos
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // 404 Not Found si el ID no existía
+        }
+    }
+
 }

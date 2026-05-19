@@ -5,6 +5,7 @@ import com.hospital.historialclinico.service.HCService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -35,5 +36,15 @@ public class HCController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void borrar(@PathVariable Long id) {
         service.eliminar(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<HCModel> actualizar(@PathVariable Long id, @Valid @RequestBody HCModel datosActualizados) {
+        try {
+            HCModel historialModificado = service.actualizar(id, datosActualizados);
+            return ResponseEntity.ok(historialModificado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

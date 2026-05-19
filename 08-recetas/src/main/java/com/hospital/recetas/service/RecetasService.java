@@ -4,6 +4,7 @@ import com.hospital.recetas.repository.RecetasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import jakarta.transaction.Transactional;
 
 @Service
 public class RecetasService {
@@ -25,5 +26,24 @@ public class RecetasService {
 
     public void eliminar(Long id) {
         repo.deleteById(id);
+    }
+
+    @Transactional
+    public RecetasModel actualizar(Long id, RecetasModel datosActualizados) {
+        // 1. Buscamos si la receta existe por su ID
+        return repo.findById(id).map(recetaExistente -> {
+            // 2. Mapeamos uno a uno todos los campos de tu modelo
+            recetaExistente.setPacienteId(datosActualizados.getPacienteId());
+            recetaExistente.setMedicoId(datosActualizados.getMedicoId());
+            recetaExistente.setReservaId(datosActualizados.getReservaId());
+            recetaExistente.setFechaEmision(datosActualizados.getFechaEmision());
+            recetaExistente.setDiagnostico(datosActualizados.getDiagnostico());
+            recetaExistente.setMedicamentos(datosActualizados.getMedicamentos());
+            recetaExistente.setIndicaciones(datosActualizados.getIndicaciones());
+            recetaExistente.setVigenciaDias(datosActualizados.getVigenciaDias());
+
+            // 3. Guardamos los cambios
+            return repo.save(recetaExistente);
+        }).orElseThrow(() -> new RuntimeException("Receta no encontrada con el ID: " + id));
     }
 }

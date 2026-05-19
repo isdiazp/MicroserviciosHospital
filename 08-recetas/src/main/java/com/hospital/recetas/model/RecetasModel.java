@@ -2,16 +2,12 @@ package com.hospital.recetas.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "recetas")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class RecetasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +43,90 @@ public class RecetasModel {
     @Positive(message = "La vigencia en días debe ser un número positivo")
     @Column(name = "vigencia_dias")
     private Integer vigenciaDias;
+
+    public RecetasModel() {
+    }
+
+    public RecetasModel(LocalDate fechaEmision, Long reservaId, Long medicoId, Long pacienteId, String diagnostico, String medicamentos, String indicaciones, Integer vigenciaDias) {
+        this.fechaEmision = fechaEmision;
+        this.reservaId = reservaId;
+        this.medicoId = medicoId;
+        this.pacienteId = pacienteId;
+        this.diagnostico = diagnostico;
+        this.medicamentos = medicamentos;
+        this.indicaciones = indicaciones;
+        this.vigenciaDias = vigenciaDias;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getVigenciaDias() {
+        return vigenciaDias;
+    }
+
+    public void setVigenciaDias(Integer vigenciaDias) {
+        this.vigenciaDias = vigenciaDias;
+    }
+
+    public String getIndicaciones() {
+        return indicaciones;
+    }
+
+    public void setIndicaciones(String indicaciones) {
+        this.indicaciones = indicaciones;
+    }
+
+    public String getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(String medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public Long getReservaId() {
+        return reservaId;
+    }
+
+    public void setReservaId(Long reservaId) {
+        this.reservaId = reservaId;
+    }
+
+    public Long getMedicoId() {
+        return medicoId;
+    }
+
+    public void setMedicoId(Long medicoId) {
+        this.medicoId = medicoId;
+    }
+
+    public Long getPacienteId() {
+        return pacienteId;
+    }
+
+    public void setPacienteId(Long pacienteId) {
+        this.pacienteId = pacienteId;
+    }
 }

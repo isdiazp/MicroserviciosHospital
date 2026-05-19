@@ -5,6 +5,7 @@ import com.hospital.notificaciones.service.NotificacionesService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -37,4 +38,15 @@ public class NotificacionesController {
     public void borrar(@PathVariable Long id) {
         service.eliminar(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NotificacionesModel> actualizar(@PathVariable Long id, @Valid @RequestBody NotificacionesModel datosActualizados) {
+        try {
+            NotificacionesModel notificacionModificada = service.actualizar(id, datosActualizados);
+            return ResponseEntity.ok(notificacionModificada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

@@ -1,17 +1,12 @@
 package com.hospital.especialidades.Model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name="especialidades")
-@AllArgsConstructor
-@NoArgsConstructor
 public class EspecialidadesModel {
 
     @Id
@@ -30,4 +25,45 @@ public class EspecialidadesModel {
     @NotBlank(message="El area medica es Obligatorio")
     @Column(name="areaMedica",nullable = false, length=40)
     private String areaMedica;
+
+    public EspecialidadesModel() {
+    }
+
+    public EspecialidadesModel(String areaMedica, String descripcionEspecialidad, String nombreEspecialidad) {
+        this.areaMedica = areaMedica;
+        this.descripcionEspecialidad = descripcionEspecialidad;
+        this.nombreEspecialidad = nombreEspecialidad;
+    }
+
+    public Long getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Long idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
+    public String getNombreEspecialidad() {
+        return nombreEspecialidad;
+    }
+
+    public void setNombreEspecialidad(String nombreEspecialidad) {
+        this.nombreEspecialidad = nombreEspecialidad;
+    }
+
+    public String getDescripcionEspecialidad() {
+        return descripcionEspecialidad;
+    }
+
+    public void setDescripcionEspecialidad(String descripcionEspecialidad) {
+        this.descripcionEspecialidad = descripcionEspecialidad;
+    }
+
+    public String getAreaMedica() {
+        return areaMedica;
+    }
+
+    public void setAreaMedica(String areaMedica) {
+        this.areaMedica = areaMedica;
+    }
 }

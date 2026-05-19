@@ -2,9 +2,7 @@ package com.hospital.agenda.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.*;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,8 +11,6 @@ import java.time.LocalTime;
 @Entity
 @Data
 @Table(name="agenda")
-@AllArgsConstructor
-@NoArgsConstructor
 public class AgendaModel {
 
     @Id
@@ -53,4 +49,92 @@ public class AgendaModel {
     @NotNull(message="Activo o inactivo es Obligatorio")
     @Column(name="activo",nullable=false)
     private boolean activo;
+
+    public AgendaModel() {
+    }
+
+    public AgendaModel(Long idMedico, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Integer duracionMinutos, Integer cuposDisponibles, String estado, boolean activo) {
+        this.idMedico = idMedico;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.duracionMinutos = duracionMinutos;
+        this.cuposDisponibles = cuposDisponibles;
+        this.estado = estado;
+        this.activo = activo;
+    }
+
+    public Long getIdAgenda() {
+        return idAgenda;
+    }
+
+    public void setIdAgenda(Long idAgenda) {
+        this.idAgenda = idAgenda;
+    }
+
+    public Long getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Long idMedico) {
+        this.idMedico = idMedico;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public Integer getDuracionMinutos() {
+        return duracionMinutos;
+    }
+
+    public void setDuracionMinutos(Integer duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public Integer getCuposDisponibles() {
+        return cuposDisponibles;
+    }
+
+    public void setCuposDisponibles(Integer cuposDisponibles) {
+        this.cuposDisponibles = cuposDisponibles;
+    }
+
+
 }

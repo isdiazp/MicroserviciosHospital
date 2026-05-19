@@ -5,6 +5,7 @@ import com.hospital.consultas.service.ConsultasService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -36,5 +37,15 @@ public class ConsultasController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void borrar(@PathVariable Long id) {
         service.eliminar(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ConsultasModel> actualizar(@PathVariable Long id, @Valid @RequestBody ConsultasModel datosActualizados) {
+        try {
+            ConsultasModel consultaModificada = service.actualizar(id, datosActualizados);
+            return ResponseEntity.ok(consultaModificada); // Retorna 200 OK con los datos nuevos
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si el ID no existía
+        }
     }
 }

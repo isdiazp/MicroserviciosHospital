@@ -5,6 +5,8 @@ import com.hospital.historialclinico.repository.HCRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import jakarta.transaction.Transactional;
+
 @Service
 public class HCService {
     @Autowired
@@ -24,5 +26,23 @@ public class HCService {
 
     public void eliminar(Long id) {
         repo.deleteById(id);
+    }
+
+    @Transactional
+    public HCModel actualizar(Long id, HCModel datosActualizados) {
+        return repo.findById(id).map(historialExistente -> {
+            historialExistente.setPacienteId(datosActualizados.getPacienteId());
+            historialExistente.setMedicoId(datosActualizados.getMedicoId());
+            historialExistente.setReservaId(datosActualizados.getReservaId());
+            historialExistente.setFechaAtencion(datosActualizados.getFechaAtencion());
+            historialExistente.setMotivoConsulta(datosActualizados.getMotivoConsulta());
+            historialExistente.setDiagnostico(datosActualizados.getDiagnostico());
+            historialExistente.setTratamiento(datosActualizados.getTratamiento());
+            historialExistente.setObservaciones(datosActualizados.getObservaciones());
+            historialExistente.setAlergias(datosActualizados.getAlergias());
+            historialExistente.setAntecedentesMedicos(datosActualizados.getAntecedentesMedicos());
+
+            return repo.save(historialExistente);
+        }).orElseThrow(() -> new RuntimeException("Historial Clínico no encontrado con el ID: " + id));
     }
 }
