@@ -12,6 +12,11 @@ public class ConsultasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "El ID del paciente es obligatorio")
+    @Size(min = 9, max = 12)
+    @Column(nullable = false)
+    private Long idPaciente;
+
     @NotBlank(message = "El nombre del box es obligatorio")
     @Size(max = 100)
     @Column(name = "nombre_box", nullable = false, length = 100)
@@ -33,11 +38,20 @@ public class ConsultasModel {
     public ConsultasModel() {
     }
 
-    public ConsultasModel(Boolean disponible, String tipoBox, Integer piso, String nombreBox) {
+    public ConsultasModel(Long idPaciente, Boolean disponible, String tipoBox, Integer piso, String nombreBox) {
         this.disponible = disponible;
         this.tipoBox = tipoBox;
         this.piso = piso;
         this.nombreBox = nombreBox;
+        this.idPaciente = idPaciente;
+    }
+
+    public Long getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Long idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     public String getNombreBox() {

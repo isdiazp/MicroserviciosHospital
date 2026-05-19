@@ -38,6 +38,7 @@ public class ConsultasService {
             consultaExistente.setPiso(datosActualizados.getPiso());
             consultaExistente.setTipoBox(datosActualizados.getTipoBox());
             consultaExistente.setDisponible(datosActualizados.getDisponible());
+            consultaExistente.setIdPaciente(datosActualizados.getIdPaciente());
 
             // 3. Guardamos los cambios
             return repo.save(consultaExistente);
