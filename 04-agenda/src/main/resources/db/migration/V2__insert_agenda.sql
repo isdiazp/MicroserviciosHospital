@@ -1,4 +1,4 @@
-INSERT INTO agenda(id_medico, fecha, fecha_inicio, hora_fin,
+INSERT INTO agenda(id_medico, fecha, hora_inicio, hora_fin,
 duracion_minutos, cupos_disponibles, estado, activo)
 VALUES
     (1, '2023-11-01', '08:00:00', '08:20:00', 20, 1, 'Disponible', TRUE),

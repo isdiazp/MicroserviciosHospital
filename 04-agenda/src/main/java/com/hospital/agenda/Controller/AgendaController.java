@@ -47,7 +47,7 @@ public class AgendaController {
         try{
             AgendaModel agenda = agendaService.findById(id);
 
-            agenda.setIdAgenda(agendaModel.getIdAgenda());
+            agenda.setIdAgenda(id);
             agenda.setIdMedico(agendaModel.getIdMedico());
             agenda.setFecha(agendaModel.getFecha());
             agenda.setHoraInicio(agendaModel.getHoraInicio());
