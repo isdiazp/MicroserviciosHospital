@@ -31,7 +31,7 @@ public class NotificacionesService {
     @Transactional
     public NotificacionesModel actualizar(Long id, NotificacionesModel datosActualizados) {
         return repo.findById(id).map(notificacionExistente -> {
-            notificacionExistente.setPacienteId(datosActualizados.getPacienteId());
+            notificacionExistente.setIdPaciente(datosActualizados.getIdPaciente());
             notificacionExistente.setMensaje(datosActualizados.getMensaje());
             notificacionExistente.setTipo(datosActualizados.getTipo());
             notificacionExistente.setEstado(datosActualizados.getEstado());

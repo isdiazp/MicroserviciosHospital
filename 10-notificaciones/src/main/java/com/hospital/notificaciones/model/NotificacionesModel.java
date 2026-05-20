@@ -15,7 +15,7 @@ public class NotificacionesModel {
 
     @NotNull(message = "El ID del paciente es obligatorio")
     @Column(name = "paciente_id", nullable = false)
-    private Long pacienteId;
+    private Long idPaciente;
 
     @NotBlank(message = "El mensaje no puede estar vacío")
     @Column(name = "mensaje", columnDefinition = "TEXT", nullable = false)
@@ -37,8 +37,8 @@ public class NotificacionesModel {
     public NotificacionesModel() {
     }
 
-    public NotificacionesModel(Long pacienteId, String mensaje, String tipo, String estado, LocalDateTime fechaEnvio) {
-        this.pacienteId = pacienteId;
+    public NotificacionesModel(Long idPaciente, String mensaje, String tipo, String estado, LocalDateTime fechaEnvio) {
+        this.idPaciente = idPaciente;
         this.mensaje = mensaje;
         this.tipo = tipo;
         this.estado = estado;
@@ -85,11 +85,11 @@ public class NotificacionesModel {
         this.mensaje = mensaje;
     }
 
-    public Long getPacienteId() {
-        return pacienteId;
+    public Long getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setPacienteId(Long pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setIdPaciente(Long idPaciente) {
+        this.idPaciente = idPaciente;
     }
 }

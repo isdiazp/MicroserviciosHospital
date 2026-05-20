@@ -15,15 +15,15 @@ public class HCModel {
 
     @NotNull(message = "El ID del paciente es obligatorio")
     @Column(name = "paciente_id", nullable = false)
-    private Long pacienteId;
+    private Long idPaciente;
 
     @NotNull(message = "El ID del médico es obligatorio")
     @Column(name = "medico_id", nullable = false)
-    private Long medicoId;
+    private Long idMedico;
 
     @NotNull(message = "El ID de la reserva es obligatorio")
     @Column(name = "reserva_id", nullable = false)
-    private Long reservaId;
+    private Long idReserva;
 
     @NotNull(message = "La fecha de atención es obligatoria")
     @PastOrPresent(message = "La fecha de atención no puede ser futura")
@@ -53,10 +53,10 @@ public class HCModel {
     public HCModel() {
     }
 
-    public HCModel(Long pacienteId, Long medicoId, Long reservaId, String motivoConsulta, LocalDate fechaAtencion, String diagnostico, String tratamiento, String observaciones, String alergias, String antecedentesMedicos) {
-        this.pacienteId = pacienteId;
-        this.medicoId = medicoId;
-        this.reservaId = reservaId;
+    public HCModel(Long idPaciente, Long idMedico, Long idReserva, String motivoConsulta, LocalDate fechaAtencion, String diagnostico, String tratamiento, String observaciones, String alergias, String antecedentesMedicos) {
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.idReserva = idReserva;
         this.motivoConsulta = motivoConsulta;
         this.fechaAtencion = fechaAtencion;
         this.diagnostico = diagnostico;
@@ -130,27 +130,27 @@ public class HCModel {
         this.fechaAtencion = fechaAtencion;
     }
 
-    public Long getReservaId() {
-        return reservaId;
+    public Long getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setReservaId(Long reservaId) {
-        this.reservaId = reservaId;
+    public void setIdPaciente(Long idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
-    public Long getMedicoId() {
-        return medicoId;
+    public Long getIdMedico() {
+        return idMedico;
     }
 
-    public void setMedicoId(Long medicoId) {
-        this.medicoId = medicoId;
+    public void setIdMedico(Long idMedico) {
+        this.idMedico = idMedico;
     }
 
-    public Long getPacienteId() {
-        return pacienteId;
+    public Long getIdReserva() {
+        return idReserva;
     }
 
-    public void setPacienteId(Long pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setIdReserva(Long idReserva) {
+        this.idReserva = idReserva;
     }
 }

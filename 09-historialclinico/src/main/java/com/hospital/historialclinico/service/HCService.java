@@ -31,9 +31,9 @@ public class HCService {
     @Transactional
     public HCModel actualizar(Long id, HCModel datosActualizados) {
         return repo.findById(id).map(historialExistente -> {
-            historialExistente.setPacienteId(datosActualizados.getPacienteId());
-            historialExistente.setMedicoId(datosActualizados.getMedicoId());
-            historialExistente.setReservaId(datosActualizados.getReservaId());
+            historialExistente.setIdPaciente(datosActualizados.getIdPaciente());
+            historialExistente.setIdMedico(datosActualizados.getIdMedico());
+            historialExistente.setIdReserva(datosActualizados.getIdReserva());
             historialExistente.setFechaAtencion(datosActualizados.getFechaAtencion());
             historialExistente.setMotivoConsulta(datosActualizados.getMotivoConsulta());
             historialExistente.setDiagnostico(datosActualizados.getDiagnostico());

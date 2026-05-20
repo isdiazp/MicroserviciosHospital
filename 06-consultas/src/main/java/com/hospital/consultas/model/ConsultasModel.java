@@ -13,8 +13,7 @@ public class ConsultasModel {
     private Long id;
 
     @NotNull(message = "El ID del paciente es obligatorio")
-    @Size(min = 9, max = 12)
-    @Column(nullable = false)
+    @Column(name = "paciente_id", nullable = false)
     private Long idPaciente;
 
     @NotBlank(message = "El nombre del box es obligatorio")
@@ -24,7 +23,7 @@ public class ConsultasModel {
 
     @NotNull(message = "El número de piso es obligatorio")
     @Min(value = 1, message = "El piso debe ser mayor o igual a 1")
-    @Column(nullable = false)
+    @Column(name = "piso", nullable = false)
     private Integer piso;
 
     @NotBlank(message = "El tipo de box es obligatorio")
@@ -33,6 +32,7 @@ public class ConsultasModel {
     private String tipoBox;
 
     @NotNull(message = "El estado de disponibilidad es obligatorio")
+    @Column(name = "disponible", length = 50)
     private Boolean disponible;
 
     public ConsultasModel() {

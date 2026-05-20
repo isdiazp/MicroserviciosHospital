@@ -33,9 +33,9 @@ public class RecetasService {
         // 1. Buscamos si la receta existe por su ID
         return repo.findById(id).map(recetaExistente -> {
             // 2. Mapeamos uno a uno todos los campos de tu modelo
-            recetaExistente.setPacienteId(datosActualizados.getPacienteId());
-            recetaExistente.setMedicoId(datosActualizados.getMedicoId());
-            recetaExistente.setReservaId(datosActualizados.getReservaId());
+            recetaExistente.setIdPaciente(datosActualizados.getIdPaciente());
+            recetaExistente.setIdMedico(datosActualizados.getIdMedico());
+            recetaExistente.setIdReserva(datosActualizados.getIdReserva());
             recetaExistente.setFechaEmision(datosActualizados.getFechaEmision());
             recetaExistente.setDiagnostico(datosActualizados.getDiagnostico());
             recetaExistente.setMedicamentos(datosActualizados.getMedicamentos());

@@ -14,28 +14,28 @@ public class Pagos {
     private Long id;
 
     @NotBlank(message = "El ID del paciente es obligatorio")
-    @Column(nullable = false)
+    @Column(name = "paciente_id", nullable = false)
     private Long idPaciente;
 
     @NotNull(message = "El monto no puede ser nulo")
     @Positive(message = "El monto debe ser mayor a cero")
-    @Column(nullable = false)
+    @Column(name = "monto", nullable = false)
     private Double monto;
 
     @NotNull(message = "La fecha de pago es obligatoria")
-    @Column(nullable = false)
+    @Column(name = "fecha_pago", nullable = false)
     private LocalDateTime fechaPago;
 
     @NotBlank(message = "El medio de pago es obligatorio")
-    @Column(nullable = false)
+    @Column(name = "medio_pago", nullable = false)
     private String medioPago;
 
     @NotBlank(message = "El estado de pago es obligatorio")
-    @Column(nullable = false)
+    @Column(name = "estado_pago", nullable = false)
     private String estadoPago;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "activo", nullable = false)
     private Boolean activo;
 
     public Pagos() {

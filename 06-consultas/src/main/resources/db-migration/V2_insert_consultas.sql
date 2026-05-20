@@ -1,4 +1,4 @@
-INSERT INTO consultas(idPaciente, nombre_box, piso, tipo_box, disponible)
+INSERT INTO consultas(paciente_id, nombre_box, piso, tipo_box, disponible)
 VALUES
 (1, 'Box cardiologia',3, 'Cardiología', TRUE),
 (2, 'Box ginecología',2, 'Ginecología', TRUE),
