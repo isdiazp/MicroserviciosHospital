@@ -1,11 +1,15 @@
 package com.hospital.consultas.service;
 
+import com.hospital.consultas.Dto.ConsultaDetalleDTO;
+import com.hospital.consultas.Dto.PacienteDTO;
 import com.hospital.consultas.model.ConsultasModel;
 import com.hospital.consultas.repository.ConsultasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class ConsultasService {
@@ -44,4 +48,44 @@ public class ConsultasService {
             return repo.save(consultaExistente);
         }).orElseThrow(() -> new RuntimeException("Consulta/Box no encontrado con el ID: " + id));
     }
+
+
+    private final WebClient webClient;
+
+    public ConsultasService(WebClient webClient, ConsultasRepository repo) {
+        this.webClient = webClient;
+        this.repo = repo;
+    }
+
+    public Mono<ConsultaDetalleDTO> obtenerConsultaConPaciente(Long id) {
+
+
+        Mono<ConsultasModel> llamadaConsultas =
+                Mono.fromCallable(() -> repo.findById(id)
+                        .orElseThrow());
+
+
+        return llamadaConsultas.flatMap(consulta -> {
+
+            Mono<PacienteDTO> llamadaPaciente = webClient.get()
+                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                            consulta.getIdPaciente())
+                    .retrieve()
+                    .bodyToMono(PacienteDTO.class);
+
+
+            return Mono.zip(Mono.just(consulta), llamadaPaciente)
+                    .map(tupla -> {
+
+                        ConsultasModel consultaResult = tupla.getT1();
+                        PacienteDTO paciente = tupla.getT2();
+
+                        return new ConsultaDetalleDTO(
+                                consultaResult,
+                                paciente
+                        );
+                    });
+        });
+    }
+
 }

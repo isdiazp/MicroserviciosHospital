@@ -1,11 +1,15 @@
 package com.hospital.notificaciones.service;
 
+import com.hospital.notificaciones.Dto.NotificacionesDetalleDTO;
+import com.hospital.notificaciones.Dto.PacienteDTO;
 import com.hospital.notificaciones.model.NotificacionesModel;
 import com.hospital.notificaciones.repository.NotificacionesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class NotificacionesService {
@@ -39,6 +43,47 @@ public class NotificacionesService {
 
             return repo.save(notificacionExistente);
         }).orElseThrow(() -> new RuntimeException("Notificación no encontrada con el ID: " + id));
+    }
+
+
+    private final WebClient webClient;
+
+
+
+    public NotificacionesService(WebClient webClient, NotificacionesRepository repo) {
+        this.webClient = webClient;
+        this.repo = repo;
+    }
+
+    public Mono<NotificacionesDetalleDTO> obtenerAgendaConMedico(Long id) {
+
+
+        Mono<NotificacionesModel> llamadaNotificaciones =
+                Mono.fromCallable(() -> repo.findById(id)
+                        .orElseThrow());
+
+
+        return llamadaNotificaciones.flatMap(notificaciones -> {
+
+            Mono<PacienteDTO> llamadaPaciente = webClient.get()
+                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                            notificaciones.getIdPaciente())
+                    .retrieve()
+                    .bodyToMono(PacienteDTO.class);
+
+
+            return Mono.zip(Mono.just(notificaciones), llamadaPaciente)
+                    .map(tupla -> {
+
+                        NotificacionesModel ntResult = tupla.getT1();
+                        PacienteDTO paciente = tupla.getT2();
+
+                        return new NotificacionesDetalleDTO(
+                                ntResult,
+                                paciente
+                        );
+                    });
+        });
     }
 
 }

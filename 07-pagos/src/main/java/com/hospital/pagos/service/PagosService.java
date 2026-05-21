@@ -1,11 +1,15 @@
 package com.hospital.pagos.service;
 
+import com.hospital.pagos.Dto.PacienteDTO;
+import com.hospital.pagos.Dto.PagosDetalleDTO;
 import com.hospital.pagos.model.Pagos;
 import com.hospital.pagos.repository.PagosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class PagosService {
@@ -42,6 +46,46 @@ public class PagosService {
             // 3. Guardamos los cambios en la base de datos
             return repo.save(pagoExistente);
         }).orElseThrow(() -> new RuntimeException("Pago no encontrado con el ID: " + id));
+    }
+
+    private final WebClient webClient;
+
+
+
+    public PagosService(WebClient webClient, PagosRepository repo) {
+        this.webClient = webClient;
+        this.repo = repo;
+    }
+
+    public Mono<PagosDetalleDTO> obtenerPagosConPaciente(Long id) {
+
+
+        Mono<Pagos> llamadaPagos =
+                Mono.fromCallable(() -> repo.findById(id)
+                        .orElseThrow());
+
+
+        return llamadaPagos.flatMap(pagos -> {
+
+            Mono<PacienteDTO> llamadaPaciente = webClient.get()
+                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                            pagos.getIdPaciente())
+                    .retrieve()
+                    .bodyToMono(PacienteDTO.class);
+
+
+            return Mono.zip(Mono.just(pagos), llamadaPaciente)
+                    .map(tupla -> {
+
+                        Pagos pagosResult = tupla.getT1();
+                        PacienteDTO paciente = tupla.getT2();
+
+                        return new PagosDetalleDTO(
+                                pagosResult,
+                                paciente
+                        );
+                    });
+        });
     }
 
 }

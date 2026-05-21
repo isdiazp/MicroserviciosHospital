@@ -1,5 +1,6 @@
 package com.hospital.medico.Controller;
 
+import com.hospital.medico.Dto.MedicoDetalleDTO;
 import com.hospital.medico.Model.MedicoModel;
 import com.hospital.medico.Service.MedicoService;
 import jakarta.validation.Valid;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 
 
 import java.util.List;
@@ -74,6 +76,14 @@ public class MedicoController {
         }catch(Exception e){
             return ResponseEntity.notFound().build();
         }
+    }
+
+    //
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<MedicoDetalleDTO>> obtenerDetalle(@PathVariable Long id){
+        return medicoService.obtenerMedicoConEspecialidad(id)
+                .map(detalle -> ResponseEntity.ok(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
 

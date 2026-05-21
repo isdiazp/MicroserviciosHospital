@@ -1,5 +1,6 @@
 package com.hospital.consultas.controller;
 
+import com.hospital.consultas.Dto.ConsultaDetalleDTO;
 import com.hospital.consultas.model.ConsultasModel;
 import com.hospital.consultas.service.ConsultasService;
 import jakarta.validation.Valid;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @RestController
@@ -47,5 +50,14 @@ public class ConsultasController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build(); // Retorna 404 si el ID no existía
         }
+    }
+
+
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<ConsultaDetalleDTO>> obtenerDetalle(@PathVariable Long id) {
+        return service.obtenerConsultaConPaciente(id)
+                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+
     }
 }

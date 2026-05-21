@@ -1,0 +1,9 @@
+CREATE TABLE pagos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    paciente_id INTEGER NOT NULL,
+    monto DOUBLE NOT NULL,
+    fecha_pago DATETIME NOT NULL,
+    medio_pago VARCHAR(50) NOT NULL,
+    estado_pago VARCHAR(50) NOT NULL,
+    activo BOOLEAN NOT NULL
+);

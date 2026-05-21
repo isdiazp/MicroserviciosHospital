@@ -1,5 +1,6 @@
 package com.hospital.reservas.Controller;
 
+import com.hospital.reservas.Dto.ReservaDetalleDTO;
 import com.hospital.reservas.Model.ReservasModel;
 import com.hospital.reservas.Service.ReservasService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -75,6 +77,15 @@ public class ReservasController {
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<ReservaDetalleDTO>> obtenerDetalles(@PathVariable Long id){
+        return reservasService.obtenerReservasConPacienteMedicoAgenda(id)
+                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+
     }
 
 }

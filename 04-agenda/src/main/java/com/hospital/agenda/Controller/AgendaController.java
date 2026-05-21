@@ -1,5 +1,6 @@
 package com.hospital.agenda.Controller;
 
+import com.hospital.agenda.Dto.AgendaDetalleDTO;
 import com.hospital.agenda.Model.AgendaModel;
 import com.hospital.agenda.Service.AgendaService;
 import jakarta.validation.Valid;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 @RestController
@@ -76,4 +78,12 @@ public class AgendaController {
         }
     }
 
+
+    // traer los datos de medico con el id
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<AgendaDetalleDTO>> obtenerDetalle(@PathVariable Long id){
+        return agendaService.obtenerAgendaConMedico(id)
+                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 }

@@ -1,5 +1,6 @@
 package com.hospital.notificaciones.controller;
 
+import com.hospital.notificaciones.Dto.NotificacionesDetalleDTO;
 import com.hospital.notificaciones.model.NotificacionesModel;
 import com.hospital.notificaciones.service.NotificacionesService;
 import jakarta.validation.Valid;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @RestController
@@ -47,6 +50,14 @@ public class NotificacionesController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<NotificacionesDetalleDTO>> detalle(@PathVariable Long id) {
+        return service.obtenerAgendaConMedico(id)
+                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
 }

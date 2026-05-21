@@ -1,5 +1,6 @@
 package com.hospital.historialclinico.controller;
 
+import com.hospital.historialclinico.Dto.HCDetalleDTO;
 import com.hospital.historialclinico.model.HCModel;
 import com.hospital.historialclinico.service.HCService;
 import jakarta.validation.Valid;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @RestController
@@ -46,5 +49,13 @@ public class HCController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping("/detalle/{id}")
+    public Mono<ResponseEntity<HCDetalleDTO>> detalleClinico(@PathVariable Long id) {
+        return service.obtenerHistorialMedicoGeneral(id)
+                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 }
