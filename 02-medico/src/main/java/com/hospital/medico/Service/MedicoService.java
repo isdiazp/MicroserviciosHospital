@@ -4,6 +4,7 @@ import com.hospital.medico.Dto.EspecialidadDTO;
 import com.hospital.medico.Repository.MedicoRepository;
 import com.hospital.medico.Model.MedicoModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
@@ -39,6 +40,8 @@ public class MedicoService {
 
     private final WebClient webClient;
 
+    @Value("${servicio.especialidades.url}")
+    private String especialidadesUrl;
 
     public MedicoService(WebClient webClient, MedicoRepository medicoRepository) {
         this.webClient = webClient;
@@ -56,7 +59,7 @@ public class MedicoService {
         return llamadaMedico.flatMap(medico -> {
 
             Mono<EspecialidadDTO> llamadaEspecialidad = webClient.get()
-                    .uri("http://localhost:8083/api/v1/especialidades/{id}",
+                    .uri(especialidadesUrl + "/api/v1/especialidades/{id}",
                             medico.getIdEspecialidad())
                     .retrieve()
                     .bodyToMono(EspecialidadDTO.class);

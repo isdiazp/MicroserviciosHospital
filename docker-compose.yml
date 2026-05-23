@@ -19,10 +19,13 @@ services:
       context: ./01-paciente
       dockerfile: Dockerfile
     container_name: 01-paciente
+    ports:
+      - "8081:8081"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_paciente
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
     deploy:
       resources:
         limits:
@@ -36,10 +39,14 @@ services:
       context: ./02-medico
       dockerfile: Dockerfile
     container_name: 02-medico
+    ports:
+      - "8082:8082"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_medico
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_MEDICO_URL=http://medico:8082
+      - SERVICIO_ESPECIALIDADES_URL=http://especialidades:8083
     deploy:
       resources:
         limits:
@@ -53,6 +60,8 @@ services:
       context: ./03-especialidades
       dockerfile: Dockerfile
     container_name: 03-especialidades
+    ports:
+      - "8083:8083"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_especialidades
       - SPRING_DATASOURCE_USERNAME=root
@@ -70,10 +79,13 @@ services:
       context: ./04-agenda
       dockerfile: Dockerfile
     container_name: 04-agenda
+    ports:
+      - "8084:8084"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_agenda
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_agendas
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_MEDICO_URL=http://medico:8082
     deploy:
       resources:
         limits:
@@ -87,10 +99,15 @@ services:
       context: ./05-reservas
       dockerfile: Dockerfile
     container_name: 05-reservas
+    ports:
+      - "8085:8085"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_reservas
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
+      - SERVICIO_MEDICO_URL=http://medico:8082
+      - SERVICIO_AGENDA_URL=http://agenda:8084
     deploy:
       resources:
         limits:
@@ -104,10 +121,13 @@ services:
       context: ./06-consultas
       dockerfile: Dockerfile
     container_name: 06-consultas
+    ports:
+      - "8086:8086"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_consultas
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
     deploy:
       resources:
         limits:
@@ -121,10 +141,13 @@ services:
       context: ./07-pagos
       dockerfile: Dockerfile
     container_name: 07-pagos
+    ports:
+      - "8087:8087"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_pagos
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
     deploy:
       resources:
         limits:
@@ -138,10 +161,15 @@ services:
       context: ./08-recetas
       dockerfile: Dockerfile
     container_name: 08-recetas
+    ports:
+      - "8088:8088"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_recetas
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
+      - SERVICIO_MEDICO_URL=http://medico:8082
+      - SERVICIO_RESERVAS_URL=http://reservas:8085
     deploy:
       resources:
         limits:
@@ -155,10 +183,15 @@ services:
       context: ./09-historialclinico
       dockerfile: Dockerfile
     container_name: 09-historialclinico
+    ports:
+      - "8089:8089"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_historialclinico
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
+      - SERVICIO_MEDICO_URL=http://medico:8082
+      - SERVICIO_RESERVAS_URL=http://reservas:8085
     deploy:
       resources:
         limits:
@@ -172,10 +205,13 @@ services:
       context: ./10-notificaciones
       dockerfile: Dockerfile
     container_name: 10-notificaciones
+    ports:
+      - "8090:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db_mysql:3306/db_notificaciones
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVICIO_PACIENTE_URL=http://paciente:8081
     deploy:
       resources:
         limits:
@@ -185,3 +221,7 @@ services:
 
 volumes:
   mysql_data:
+
+networks:
+  hospital-network:
+    driver: bridge

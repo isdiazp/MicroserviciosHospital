@@ -6,6 +6,7 @@ import com.hospital.recetas.Dto.ReservaDTO;
 import com.hospital.recetas.model.RecetasModel;
 import com.hospital.recetas.repository.RecetasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
@@ -57,6 +58,15 @@ public class RecetasService {
 
     private final WebClient webClient;
 
+    @Value("${servicio.paciente.url}")
+    private String pacienteUrl;
+
+    @Value("${servicio.medico.url}")
+    private String medicoUrl;
+
+    @Value("${servicio.reservas.url}")
+    private String reservasUrl;
+
     public RecetasService(WebClient webClient, RecetasRepository repo) {
         this.webClient = webClient;
         this.repo = repo;
@@ -73,19 +83,19 @@ public class RecetasService {
         return llamadaRecetas.flatMap(recetas -> {
 
             Mono<PacienteDTO> llamadaPaciente = webClient.get()
-                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                    .uri(pacienteUrl + "/api/v1/pacientes/{id}",
                             recetas.getIdPaciente())
                     .retrieve()
                     .bodyToMono(PacienteDTO.class);
 
             Mono<MedicoDTO> llamadaMedico = webClient.get()
-                    .uri("http://localhost:8082/api/v1/medicos/{id}",
+                    .uri(medicoUrl + "/api/v1/medicos/{id}",
                             recetas.getIdMedico())
                     .retrieve()
                     .bodyToMono(MedicoDTO.class);
 
             Mono<ReservaDTO> llamadaReserva = webClient.get()
-                    .uri("http://localhost:8085/api/v1/reservas/{id}",
+                    .uri(reservasUrl + "/api/v1/reservas/{id}",
                             recetas.getIdReserva())
                     .retrieve()
                     .bodyToMono(ReservaDTO.class);

@@ -8,6 +8,8 @@ public class ReservaDTO {
     private Long idReserva;
     private LocalDate fechaAtencion;
     private LocalTime horaAtencion;
+    private String motivoConsulta;
+    private String observacion;
 
 
     // Getters y Setters
@@ -34,5 +36,21 @@ public class ReservaDTO {
 
     public void setHoraAtencion(LocalTime horaAtencion) {
         this.horaAtencion = horaAtencion;
+    }
+
+    public String getMotivoConsulta() {
+        return motivoConsulta;
+    }
+
+    public void setMotivoConsulta(String motivoConsulta) {
+        this.motivoConsulta = motivoConsulta;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 }

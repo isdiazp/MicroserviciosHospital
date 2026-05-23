@@ -7,6 +7,7 @@ import com.hospital.historialclinico.Dto.ReservaDTO;
 import com.hospital.historialclinico.model.HCModel;
 import com.hospital.historialclinico.repository.HCRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
@@ -55,6 +56,15 @@ public class HCService {
 
     private final WebClient webClient;
 
+    @Value("${servicio.paciente.url}")
+    private String pacienteUrl;
+
+    @Value("${servicio.medico.url}")
+    private String medicoUrl;
+
+    @Value("${servicio.reservas.url}")
+    private String reservasUrl;
+
     public HCService(WebClient webClient, HCRepository repo) {
         this.webClient = webClient;
         this.repo = repo;
@@ -71,19 +81,19 @@ public class HCService {
         return llamadaHistorialClinico.flatMap(historial -> {
 
             Mono<PacienteDTO> llamadaPaciente = webClient.get()
-                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                    .uri(pacienteUrl + "/api/v1/pacientes/{id}",
                             historial.getIdPaciente())
                     .retrieve()
                     .bodyToMono(PacienteDTO.class);
 
             Mono<MedicoDTO> llamadaMedico = webClient.get()
-                    .uri("http://localhost:8082/api/v1/medicos/{id}",
+                    .uri(medicoUrl + "/api/v1/medicos/{id}",
                             historial.getIdMedico())
                     .retrieve()
                     .bodyToMono(MedicoDTO.class);
 
             Mono<ReservaDTO> llamadaReserva = webClient.get()
-                    .uri("http://localhost:8085/api/v1/reservas/{id}",
+                    .uri(reservasUrl + "/api/v1/reservas/{id}",
                             historial.getIdReserva())
                     .retrieve()
                     .bodyToMono(ReservaDTO.class);

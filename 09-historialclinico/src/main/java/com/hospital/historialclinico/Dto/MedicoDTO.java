@@ -3,7 +3,7 @@ package com.hospital.historialclinico.Dto;
 public class MedicoDTO {
 
     private Long idMedico;
-    private String rutPaciente;
+    private String rutMedico;
     private String nombreMedico;
     private String apellidoMedico;
 
@@ -17,12 +17,12 @@ public class MedicoDTO {
         this.idMedico = idMedico;
     }
 
-    public String getRutPaciente() {
-        return rutPaciente;
+    public String getRutMedico() {
+        return rutMedico;
     }
 
-    public void setRutPaciente(String rutPaciente) {
-        this.rutPaciente = rutPaciente;
+    public void setRutMedico(String rutMedico) {
+        this.rutMedico = rutMedico;
     }
 
     public String getNombreMedico() {

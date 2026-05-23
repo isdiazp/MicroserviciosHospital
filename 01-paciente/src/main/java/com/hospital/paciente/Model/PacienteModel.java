@@ -2,12 +2,10 @@ package com.hospital.paciente.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name= "paciente")
 public class PacienteModel {
@@ -30,7 +28,6 @@ public class PacienteModel {
     @Column(name="apellidoPaciente" ,nullable=false, length=50)
     private String apellidoPaciente;
 
-    @NotNull(message="La fecha de nacimiento del paciente es Opcional")
     @Column(name="fechaNacimiento",nullable=true)
     private LocalDate fechaNacimiento;
 
@@ -46,25 +43,8 @@ public class PacienteModel {
     @Column(name="telefonoPaciente",nullable=false, length=15)
     private String telefonoPaciente;
 
-    @NotBlank(message="La direccion del paciente es Opcional")
     @Column(name="direccionPaciente",nullable=true,  length=50)
     private String direccionPaciente;
-
-
-    public PacienteModel(Long idPaciente, String rutPaciente, String nombrePaciente, String apellidoPaciente, LocalDate fechaNacimiento, String sexoPaciente, String correoPaciente, String telefonoPaciente, String direccionPaciente) {
-        this.idPaciente = idPaciente;
-        this.rutPaciente = rutPaciente;
-        this.nombrePaciente = nombrePaciente;
-        this.apellidoPaciente = apellidoPaciente;
-        this.fechaNacimiento = fechaNacimiento;
-        this.sexoPaciente = sexoPaciente;
-        this.correoPaciente = correoPaciente;
-        this.telefonoPaciente = telefonoPaciente;
-        this.direccionPaciente = direccionPaciente;
-    }
-
-    public PacienteModel() {
-    }
 
     public Long getIdPaciente() {
         return idPaciente;

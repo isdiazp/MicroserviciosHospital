@@ -3,6 +3,7 @@ package com.hospital.consultas.Dto;
 public class PacienteDTO {
 
     private Long idPaciente;
+    private String rutPaciente;
     private String nombrePaciente;
     private String apellidoPaciente;
     private String sexoPaciente;
@@ -13,6 +14,14 @@ public class PacienteDTO {
 
     public void setIdPaciente(Long idPaciente) {
         this.idPaciente = idPaciente;
+    }
+
+    public String getRutPaciente() {
+        return rutPaciente;
+    }
+
+    public void setRutPaciente(String rutPaciente) {
+        this.rutPaciente = rutPaciente;
     }
 
     public String getNombrePaciente() {

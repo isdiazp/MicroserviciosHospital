@@ -7,6 +7,7 @@ import com.hospital.reservas.Dto.ReservaDetalleDTO;
 import com.hospital.reservas.Model.ReservasModel;
 import com.hospital.reservas.Repository.ReservasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -39,6 +40,15 @@ public class ReservasService {
 
     private final WebClient webClient;
 
+    @Value("${servicio.paciente.url}")
+    private String pacienteUrl;
+
+    @Value("${servicio.medico.url}")
+    private String medicoUrl;
+
+    @Value("${servicio.agenda.url}")
+    private String agendaUrl;
+
     public ReservasService(WebClient webClient, ReservasRepository reservasRepository) {
         this.webClient = webClient;
         this.reservasRepository = reservasRepository;
@@ -55,19 +65,19 @@ public class ReservasService {
         return llamadaReservas.flatMap(reserva -> {
 
             Mono<PacienteDTO> llamadaPaciente = webClient.get()
-                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                    .uri(pacienteUrl + "/api/v1/pacientes/{id}",
                             reserva.getIdPaciente())
                     .retrieve()
                     .bodyToMono(PacienteDTO.class);
 
             Mono<MedicoDTO> llamadaMedico = webClient.get()
-                    .uri("http://localhost:8082/api/v1/medicos/{id}",
+                    .uri(medicoUrl + "/api/v1/medicos/{id}",
                             reserva.getIdMedico())
                     .retrieve()
                     .bodyToMono(MedicoDTO.class);
 
             Mono<AgendaDTO> llamadaAgenda = webClient.get()
-                    .uri("http://localhost:8084/api/v1/agendas/{id}",
+                    .uri(agendaUrl + "/api/v1/agendas/{id}",
                             reserva.getIdAgenda())
                     .retrieve()
                     .bodyToMono(AgendaDTO.class);

@@ -5,6 +5,7 @@ import com.hospital.consultas.Dto.PacienteDTO;
 import com.hospital.consultas.model.ConsultasModel;
 import com.hospital.consultas.repository.ConsultasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.transaction.Transactional;
@@ -52,6 +53,9 @@ public class ConsultasService {
 
     private final WebClient webClient;
 
+    @Value("${servicio.paciente.url}")
+    private String pacienteUrl;
+
     public ConsultasService(WebClient webClient, ConsultasRepository repo) {
         this.webClient = webClient;
         this.repo = repo;
@@ -68,7 +72,7 @@ public class ConsultasService {
         return llamadaConsultas.flatMap(consulta -> {
 
             Mono<PacienteDTO> llamadaPaciente = webClient.get()
-                    .uri("http://localhost:8081/api/v1/pacientes/{id}",
+                    .uri(pacienteUrl + "/api/v1/pacientes/{id}",
                             consulta.getIdPaciente())
                     .retrieve()
                     .bodyToMono(PacienteDTO.class);

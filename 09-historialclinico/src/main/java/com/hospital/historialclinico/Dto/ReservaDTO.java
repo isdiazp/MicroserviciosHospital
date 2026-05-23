@@ -1,15 +1,11 @@
 package com.hospital.historialclinico.Dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ReservaDTO {
 
-    @JsonProperty("idReservas")
-    private Long id;
-
+    private Long idReserva;
     private LocalDate fechaAtencion;
     private LocalTime horaAtencion;
     private String motivoConsulta;
@@ -19,12 +15,12 @@ public class ReservaDTO {
     // Getters y setters
 
 
-    public Long getId() {
-        return id;
+    public Long getIdReserva() {
+        return idReserva;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdReserva(Long idReserva) {
+        this.idReserva = idReserva;
     }
 
     public LocalDate getFechaAtencion() {

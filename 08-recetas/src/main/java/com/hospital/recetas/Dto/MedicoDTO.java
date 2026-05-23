@@ -2,19 +2,19 @@ package com.hospital.recetas.Dto;
 
 public class MedicoDTO {
 
-    private Long idPaciente;
+    private Long idMedico;
     private String rutMedico;
     private String nombreMedico;
     private String apellidoMedico;
 
     // Getters y Setters
 
-    public Long getIdPaciente() {
-        return idPaciente;
+    public Long getIdMedico() {
+        return idMedico;
     }
 
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setIdMedico(Long idMedico) {
+        this.idMedico = idMedico;
     }
 
     public String getRutMedico() {

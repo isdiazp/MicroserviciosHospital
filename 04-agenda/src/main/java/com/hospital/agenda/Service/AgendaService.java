@@ -6,6 +6,7 @@ import com.hospital.agenda.Model.AgendaModel;
 import com.hospital.agenda.Repository.AgendaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -36,7 +37,8 @@ public class AgendaService {
 
     private final WebClient webClient;
 
-
+    @Value("${servicio.medico.url}")
+    private String medicoUrl;
 
     public AgendaService(WebClient webClient, AgendaRepository agendaRepository) {
         this.webClient = webClient;
@@ -54,7 +56,7 @@ public class AgendaService {
         return llamadaAgenda.flatMap(agenda -> {
 
             Mono<MedicoDTO> llamadaMedico = webClient.get()
-                    .uri("http://localhost:8082/api/v1/medicos/{id}",
+                    .uri(medicoUrl + "/api/v1/medicos/{id}",
                             agenda.getIdMedico())
                     .retrieve()
                     .bodyToMono(MedicoDTO.class);
