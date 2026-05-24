@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class ReservaDTO {
 
-    private Long idReserva;
+    private Long idReservas;
     private LocalDate fechaAtencion;
     private LocalTime horaAtencion;
     private String motivoConsulta;
@@ -14,12 +14,12 @@ public class ReservaDTO {
 
     // Getters y Setters
 
-    public Long getIdReserva() {
-        return idReserva;
+    public Long getIdReservas() {
+        return idReservas;
     }
 
-    public void setIdReserva(Long idReserva) {
-        this.idReserva = idReserva;
+    public void setIdReservas(Long idReservas) {
+        this.idReservas = idReservas;
     }
 
     public LocalDate getFechaAtencion() {
