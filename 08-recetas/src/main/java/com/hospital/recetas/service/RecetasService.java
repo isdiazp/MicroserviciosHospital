@@ -9,9 +9,12 @@ import com.hospital.recetas.repository.RecetasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.transaction.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -120,50 +123,41 @@ public class RecetasService {
         this.repo = repo;
     }
 
-    public Mono<RecetasDetalleDTO> obtenerDetalleRecetas(Long id) {
+    public List<RecetasDetalleDTO> obtenerDetalleRecetasPorMedico(Long idMedico) {
+        List<RecetasModel> recetas = repo.findByIdMedico(idMedico);
+        List<RecetasDetalleDTO> resultado = new ArrayList<>();
 
+        for (RecetasModel receta : recetas) {
 
-        Mono<RecetasModel> llamadaRecetas =
-                Mono.fromCallable(() -> repo.findById(id)
-                        .orElseThrow());
-
-
-        return llamadaRecetas.flatMap(recetas -> {
-
-            Mono<PacienteDTO> llamadaPaciente = webClient.get()
-                    .uri(pacienteUrl + "/api/v1/pacientes/{id}",
-                            recetas.getIdPaciente())
+            PacienteDTO paciente = webClient.get()
+                    .uri(pacienteUrl + "/api/v1/pacientes/{id}", receta.getIdPaciente())
                     .retrieve()
-                    .bodyToMono(PacienteDTO.class);
+                    .bodyToMono(PacienteDTO.class)
+                    .block();
 
-            Mono<MedicoDTO> llamadaMedico = webClient.get()
-                    .uri(medicoUrl + "/api/v1/medicos/{id}",
-                            recetas.getIdMedico())
+            MedicoDTO medico = webClient.get()
+                    .uri(medicoUrl + "/api/v1/medicos/{id}", receta.getIdMedico())
                     .retrieve()
-                    .bodyToMono(MedicoDTO.class);
+                    .bodyToMono(MedicoDTO.class)
+                    .block();
 
-            Mono<ReservaDTO> llamadaReserva = webClient.get()
-                    .uri(reservasUrl + "/api/v1/reservas/{id}",
-                            recetas.getIdReserva())
+            ReservaDTO reserva = webClient.get()
+                    .uri(reservasUrl + "/api/v1/reservas/{id}", receta.getIdReserva())
                     .retrieve()
-                    .bodyToMono(ReservaDTO.class);
+                    .bodyToMono(ReservaDTO.class)
+                    .block();
 
+            RecetasDetalleDTO dto = new RecetasDetalleDTO(
+                    receta,
+                    paciente,
+                    medico,
+                    reserva
+            );
 
-            return Mono.zip(Mono.just(recetas), llamadaPaciente,llamadaMedico,llamadaReserva)
-                    .map(tupla -> {
+            resultado.add(dto);
+        }
 
-                        RecetasModel recetasResult = tupla.getT1();
-                        PacienteDTO paciente = tupla.getT2();
-                        MedicoDTO medico = tupla.getT3();
-                        ReservaDTO reserva = tupla.getT4();
+        return resultado;
 
-                        return new RecetasDetalleDTO(
-                                recetasResult,
-                                paciente,
-                                medico,
-                                reserva
-                        );
-                    });
-        });
     }
 }

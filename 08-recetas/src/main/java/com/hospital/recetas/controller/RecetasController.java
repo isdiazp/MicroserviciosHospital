@@ -54,10 +54,35 @@ public class RecetasController {
     }
 
 
-    @GetMapping("/detalle/{id}")
-    public Mono<ResponseEntity<RecetasDetalleDTO>> detalle(@PathVariable Long id) {
-        return service.obtenerDetalleRecetas(id)
-                .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+
+    //@GetMapping("/detalle/{id}")
+    //public Mono<ResponseEntity<RecetasDetalleDTO>> detalle(@PathVariable Long id) {
+    //    return service.obtenerDetalleRecetas(id)
+    //            .map(detalle -> ResponseEntity.status(HttpStatus.OK).body(detalle))
+    //            .defaultIfEmpty(ResponseEntity.notFound().build());
+    //}
+
+    @GetMapping("/con-medico")
+    public ResponseEntity<List<RecetaConMedicoDTO>> detalleMedico() {
+
+        List<RecetaConMedicoDTO> lista = service.listarTodasConMedico();
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+
+    @GetMapping("/medico/{id}")
+    public ResponseEntity<List<RecetasDetalleDTO>> recetasPorMedico(@PathVariable Long id) {
+
+        List<RecetasDetalleDTO> lista = service.obtenerDetalleRecetasPorMedico(id);
+
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(lista);
+
     }
 }
