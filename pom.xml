@@ -27,6 +27,7 @@
         <module>08-recetas</module>
         <module>09-historialclinico</module>
         <module>10-notificaciones</module>
+        <module>11-apigateway</module>
     </modules>
 
     <properties>

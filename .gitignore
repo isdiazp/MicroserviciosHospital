@@ -3,3 +3,7 @@
 out/
 target/
 init-db/
+# Logs
+**/logs/
+*.log
+*.gz
