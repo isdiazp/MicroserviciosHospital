@@ -49,6 +49,9 @@ public class MedicoService {
 
         return medicoRepository.save(medico);
     }
+
+
+
     public void delete(Long id){
         medicoRepository.deleteById(id);
     }
