@@ -13,7 +13,8 @@ public class Pagos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El ID del paciente es obligatorio")
+    @NotNull(message = "El ID del paciente es obligatorio")
+    @Positive(message = "El ID del paciente debe ser positivo")
     @Column(name = "paciente_id", nullable = false)
     private Long idPaciente;
 
