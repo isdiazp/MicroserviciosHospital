@@ -24,9 +24,9 @@ public class EspecialidadesController {
     public ResponseEntity<List<EspecialidadesModel>> listar(){
         List<EspecialidadesModel> especialidad =  especialidadesService.listarTodo();
         if(especialidad.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);//NOT_FOUND ->404
         }
-        return new ResponseEntity<>(especialidad, HttpStatus.OK);
+        return new ResponseEntity<>(especialidad, HttpStatus.OK);//200
     }
 
     @PostMapping
