@@ -37,6 +37,7 @@ public class PacienteService {
         existente.setFechaNacimiento(paciente.getFechaNacimiento());
         existente.setSexoPaciente(paciente.getSexoPaciente());
         existente.setCorreoPaciente(paciente.getCorreoPaciente());
+        existente.setTelefonoPaciente(paciente.getTelefonoPaciente());
         existente.setDireccionPaciente(paciente.getDireccionPaciente());
 
         return pacienteRepository.save(existente);

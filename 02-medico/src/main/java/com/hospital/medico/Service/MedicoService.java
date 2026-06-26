@@ -47,7 +47,7 @@ public class MedicoService {
         existente.setAnniosExperiencia(medico.getAnniosExperiencia());
         existente.setIdEspecialidad(medico.getIdEspecialidad());
 
-        return medicoRepository.save(medico);
+        return medicoRepository.save(existente);
     }
 
 
